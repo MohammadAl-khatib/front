@@ -7,19 +7,15 @@ class FavModal extends Component {
     return (
       <Modal show={this.props.showModal} onHide={this.props.handleModalClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Your Favourit Drink</Modal.Title>
         </Modal.Header>
         <Modal.Body><form>
-          <input defaultValue ={this.props.strDrink} onChange = {this.props.handleStrDrink} />
-          <input/>
-          <input/>
+          <label>Drink Name:&nbsp;</label>
+          <input defaultValue ={this.props.strDrink} onChange = {this.props.handleStrDrink} /> <br/>
           </form></Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={this.props.handleModalClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick = {this.props.updateFav} >update</Button>
-          <Button variant="primary" onClick = {this.props.deleteFav} >delete</Button>
+          <Button variant="primary" onClick = {()=>{this.props.updateFav();this.props.handleModalClose()}} >update</Button>
+          <Button variant="primary" onClick = {()=>{this.props.deleteFav();this.props.handleModalClose()}} >delete</Button>
         </Modal.Footer>
       </Modal>
     );

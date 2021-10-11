@@ -73,12 +73,12 @@ class App extends Component {
     });
   };
 
-  updateFav = ()=> {
+  updateFav = () => {
     let updatedFav = {
       strDrink: this.state.strDrink,
       idDrink: this.state.idDrink,
       strDrinkThumb: this.state.strDrinkThumb,
-    }
+    };
     axios
       .put(
         `${process.env.REACT_APP_BACKEND_PORT}/update-fav/${this.state.item._id}`,
@@ -89,46 +89,56 @@ class App extends Component {
           favs: res.data,
         });
       });
-  }
+  };
 
-deleteFav = () => {
-  axios
-  .delete(
-    `${process.env.REACT_APP_BACKEND_PORT}/delete-fav/${this.state.item._id}`,
-  )
-  .then((res) => {
-    this.setState({
-      favs: res.data,
-    });
-  });
-}
+  deleteFav = () => {
+    axios
+      .delete(
+        `${process.env.REACT_APP_BACKEND_PORT}/delete-fav/${this.state.item._id}`
+      )
+      .then((res) => {
+        this.setState({
+          favs: res.data,
+        });
+      });
+  };
 
   render() {
     return (
       <div>
         <Router>
+          <div id = "header">
+            <section style = {{"display":"flex"}}>
+            <img src = "https://static5.depositphotos.com/1015279/496/v/600/depositphotos_4963315-stock-illustration-cocktail.jpg" alt="drink" />
+            <p style = {{"margin":"0"}}>AlKhatib Coffee Shop</p>
+            </section>
           <Nav />
           {!this.props.auth0.isAuthenticated && <LoginButton />}
           {this.props.auth0.isAuthenticated && <LogoutButton />}
+          </div>
           <Switch>
             <Route exact path="/">
-              <div id="datacard">
+              <div className="cards-div">
                 <DataCard data={this.state.data} addToFavs={this.addToFavs} />
               </div>
             </Route>
             <Route exact path="/favs">
+              <div className="cards-div">
               <FavCard
                 favs={this.state.favs}
                 handleModalOpen={this.handleModalOpen}
               />
-              <FavModal
-                showModal={this.state.showModal}
-                handleModalClose={this.handleModalClose}
-                strDrink={this.state.strDrink}
-                handleStrDrink = {this.handleStrDrink}
-                updateFav = {this.updateFav}
-                deleteFav = {this.deleteFav}
-              />
+              </div>
+              <div >
+                <FavModal
+                  showModal={this.state.showModal}
+                  handleModalClose={this.handleModalClose}
+                  strDrink={this.state.strDrink}
+                  handleStrDrink={this.handleStrDrink}
+                  updateFav={this.updateFav}
+                  deleteFav={this.deleteFav}
+                />
+              </div>
             </Route>
           </Switch>
         </Router>
